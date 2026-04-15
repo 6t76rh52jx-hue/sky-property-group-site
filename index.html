@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sky Property Group - Elevate Your Real Estate Experience</title>
+    
+    <style>
+        :root {
+            --primary: #0f1c2e;
+            --secondary: #1a2f4a;
+            --accent: #f78da7;
+            --glass: rgba(255,255,255,0.10);
+            --glass-border: rgba(255,255,255,0.20);
+            --text: rgba(255,255,255,0.95);
+            --text-muted: rgba(255,255,255,0.70);
+            /* Additional colors from reference but not explicitly defined as CSS vars in rules */
+            --ref-red: #cf2e2e;
+            --ref-orange: #ff6900;
+            --ref-yellow: #fcb900;
+            --ref-green: #7bdcb5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--primary);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6, .luxury-font {
+            font-family: 'Sora', serif; /* Using Sora for 'luxury feel' */
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            backdrop-filter: blur(28px) saturate(200%);
+            -webkit-backdrop-filter: blur(28px) saturate(200%);
+            background: rgba(5,10,20,0.7);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 999;
+            padding: 0 5vw;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-sizing: border-box;
+        }
+
+        .navbar-logo {
+            height: 44px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .navbar-nav {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar-nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav a:hover {
+            color: var(--text);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent) 0%, color-mix(in srgb, var(--accent) 60%, var(--secondary)) 100%);
+            border: none;
+            padding: 15px 38px;
+            border-radius: 6px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: .9rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: transform .22s ease, box-shadow .22s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: scale(1.04);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+        }
+
+        .btn.ghost {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.4);
+            color: var(--text);
+        }
+
+        .btn.ghost:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.7);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.65) 100%), url('https://upload.wikimedia.org/wikipedia/commons/0/06/Detroit_Night_Skyline.JPG') center/cover no-repeat;
+            background-attachment: scroll;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .hero-logo {
+            display: block;
+            height: 200px;
+            object-fit: contain;
+            margin: 0 auto 32px;
+            filter: drop-shadow(0 4px 24px rgba(0,0,0,0.5));
+        }
+
+        .hero-headline {
+            font-family: 'Sora', serif;
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 300;
+            letter-spacing: -2px;
+            line-height: 1.08;
+            margin: 0 0 20px;
+            color: var(--text);
+        }
+
+        .hero-subheadline {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            opacity: 0.6;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            color: var(--text-muted);
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-pill {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            padding: 12px 28px;
+            color: var(--text);
+            font-family: 'Sora', serif;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+        
+        /* Section Transitions */
+        section {
+            position: relative;
+            padding: 130px 8vw;
+            overflow: hidden;
+        }
+
+        section:nth-of-type(odd) {
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        section:nth-of-type(even) {
+            background: linear-gradient(180deg, var(--secondary) 0%, var(--primary) 100%);
+        }
+
+        section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(transparent, var(--primary));
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Section Headings */
+        .section-heading {
+            font-family: 'Sora', serif;
+            font-size: clamp(2.4rem, 5.5vw, 4rem);
+            font-weight: 300;
+            letter-spacing: -1.5px;
+            line-height: 1.08;
+            margin: 0 0 16px;
+            color: var(--text);
+        }
+
+        .section-subhead {
+            font-size: 1.05rem;
+            opacity: .6;
+            line-height: 1.8;
+            max-width: 580px;
+            font-weight: 300;
+            margin-bottom: 40px;
+            color: var(--text-muted);
+        }
+
+        .text-center {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .divider {
+            width: 48px;
+            height: 1px;
+            background: var(--accent); /* Using accent for divider */
+            margin: 16px 0 32px;
+        }
+
+        /* Glass Card */
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 36px 28px;
+            transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 32px 64px rgba(0,0,0,0.45);
+        }
+
+        .card-title {
+            font-family: 'Sora', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 0 0 12px;
+            color: var(--text);
+        }
+
+        .card-body {
+            font-size: .95rem;
+            line-height: 1.75;
+            color: var(--text-muted);
+        }
+
+        /* Featured Listings */
+        .listings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .listing-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 8px;
+            display: block;
+            margin-bottom: 20px;
+        }
+        .listing-card .price {
+            font-family: 'Sora', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+        .listing-card .address {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        .listing-card .btn {
+            padding: 10px 20px;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .service-card {
+            border-top: 2px solid var(--accent); /* Accent color for top border */
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-left p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: var(--text-muted);
+        }
+        .team-member {
+            margin-top: 25px;
+        }
+        .team-member h3 {
+            font-family: 'Sora', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0 0 5px;
+            color: var(--text);
+        }
+        .team-member p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .about-right img {
+            width: 100%;
+            height: 480px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 40px;
+        }
+
+        .about-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .stat-block {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-block .number {
+            font-family: 'Sora', serif;
+            font-size: clamp(2.5rem, 4vw, 3.8rem);
+            font-weight: 300;
+            color: var(--accent); /* Using accent color for stat numbers */
+        }
+
+        .stat-block .label {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            text-align: right;
+            line-height: 1.4;
+        }
+
+        /* Testimonials Section */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .testimonial-card {
+            border-left: 3px solid var(--accent); /* Accent color for left border */
+            border-radius: 0 16px 16px 0;
+            padding: 36px 28px; /* Override glass-card padding to match rule */
+        }
+
+        .testimonial-card .stars {
+            color: var(--ref-yellow); /* Using yellow for stars */
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-card .quote {
+            font-family: 'Sora', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .testimonial-card .reviewer-name {
+            font-family: 'Sora', serif;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text);
+        }
+        .testimonial-card .reviewer-title {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        /* Contact Section */
+        .contact-form-container {
+            max-width: 720px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 25px;
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 6px;
+            color: var(--text);
+            padding: 14px 18px;
+            width: 100%;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: var(--text-muted);
+            opacity: 0.7;
+        }
+        .contact-details {
+            margin-top: 30px;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+        .contact-details p {
+            margin: 0;
+            color: var(--text-muted);
+        }
+        .contact-details strong {
+            color: var(--text);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary);
+            border-top: 1px solid var(--glass-border);
+            padding: 40px 8vw;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .footer-logo {
+            height: 36px;
+            object-fit: contain;
+            display: block;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .footer-nav a:hover {
+            color: var(--text);
+        }
+
+        .footer-info {
+            text-align: right;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        .footer-info p {
+            margin: 0;
+        }
+
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);
+        }
+
+        .reveal-left.visible, .reveal-right.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(.9);
+            transition: opacity .7s ease, transform .7s ease;
+        }
+
+        .reveal-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Card stagger delays */
+        .cards-stagger > *:nth-child(1) { transition-delay: 0ms; }
+        .cards-stagger > *:nth-child(2) { transition-delay: 100ms; }
+        .cards-stagger > *:nth-child(3) { transition-delay: 200ms; }
+        .cards-stagger > *:nth-child(4) { transition-delay: 300ms; }
+        .cards-stagger > *:nth-child(5) { transition-delay: 400ms; }
+        .cards-stagger > *:nth-child(6) { transition-delay: 500ms; }
+        .cards-stagger > *:nth-child(7) { transition-delay: 600ms; }
+        .cards-stagger > *:nth-child(8) { transition-delay: 700ms; }
+        .cards-stagger > *:nth-child(9) { transition-delay: 800ms; }
+        .cards-stagger > *:nth-child(10) { transition-delay: 900ms; }
+
+
+        @media (max-width: 992px) {
+            .navbar-nav {
+                gap: 1.5rem;
+            }
+            .hero-headline {
+                font-size: clamp(2.5rem, 8vw, 4.5rem);
+            }
+            .hero-subheadline {
+                font-size: 1rem;
+            }
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 60px;
+            }
+            .about-right {
+                text-align: center;
+            }
+            .about-right img {
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 80%;
+            }
+            .footer {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .footer-info {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                justify-content: center;
+                gap: 20px;
+                flex-wrap: wrap;
+                height: auto;
+                padding: 15px 5vw;
+            }
+            .navbar-logo {
+                margin-bottom: 10px;
+            }
+            .navbar-nav {
+                width: 100%;
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+            .navbar .btn {
+                width: 100%;
+                text-align: center;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .hero-buttons .btn {
+                width: 80%;
+            }
+            .hero-stats {
+                flex-direction: column;
+                align-items: center;
+            }
+            section {
+                padding: 80px 5vw;
+            }
+            .testimonials-grid, .listings-grid, .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .testimonial-card {
+                border-left: none;
+                border-top: 3px solid var(--accent);
+                border-radius: 16px 16px 0 0;
+            }
+        }
+    
+/* Jarvis: enforce display font on headings */
+h1,h2,h3,.section-heading,.hero-title,.stat-number{font-family:'Cormorant Garant',serif!important;}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#hero" class="navbar-logo"><img src="sky-logo.png" alt="logo" style="height:44px;max-width:180px;object-fit:contain;display:block;" /></a>
+        <ul class="navbar-nav">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#featured-listings">Properties</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+        </ul>
+        <a href="#contact" class="btn">Schedule a Call</a>
+    </nav>
+
+    <section id="hero" class="hero">
+        <div class="hero-content">
+            <div class="hero-logo"><img src="sky-logo.png" alt="logo" style="height:200px;max-width:400px;object-fit:contain;display:block;margin:0 auto;" /></div>
+            <h1 class="hero-headline reveal">Elevate Your Real Estate Experience.</h1>
+            <p class="hero-subheadline reveal" style="transition-delay: 200ms;">Specializing in commercial and residential realty, Sky Property Group serves over 100 discerning clients with unparalleled expertise and a commitment to luxury.</p>
+            <div class="hero-buttons">
+                <a href="#featured-listings" class="btn reveal" style="transition-delay: 400ms;">View Listings</a>
+                <a href="#services" class="btn ghost reveal" style="transition-delay: 500ms;">Explore Our Services</a>
+            </div>
+            <div class="hero-stats reveal" style="transition-delay: 600ms;">
+                <span class="stat-pill">250+ Properties</span>
+                <span class="stat-pill">98% Satisfaction</span>
+                <span class="stat-pill">Troy, MI</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="featured-listings">
+        <h2 class="section-heading text-center reveal">Exclusive Properties.</h2>
+        <p class="section-subhead text-center reveal" style="transition-delay: 100ms;">Explore our curated selection of premier commercial and residential properties, embodying sophistication and exceptional value.</p>
+        <div class="listings-grid cards-stagger">
+            <div class="glass-card listing-card reveal-scale">
+                <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1600" alt="Luxury Home 1">
+                <div class="price">$1,250,000</div>
+                <div class="address">123 Elm Street, Troy, MI</div>
+                <a href="#" class="btn ghost">View Details</a>
+            </div>
+            <div class="glass-card listing-card reveal-scale">
+                <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200" alt="Commercial Office">
+                <div class="price">$3,800,000</div>
+                <div class="address">456 Oak Avenue, Troy, MI</div>
+                <a href="#" class="btn ghost">View Details</a>
+            </div>
+            <div class="glass-card listing-card reveal-scale">
+                <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200" alt="Modern Residence">
+                <div class="price">$895,000</div>
+                <div class="address">789 Pine Drive, Troy, MI</div>
+                <a href="#" class="btn ghost">View Details</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <h2 class="section-heading text-center reveal">Explore Our Services.</h2>
+        <p class="section-subhead text-center reveal" style="transition-delay: 100ms;">Discover the breadth of our bespoke real estate solutions, meticulously tailored to meet your unique aspirations.</p>
+        <div class="services-grid cards-stagger">
+            <div class="glass-card service-card reveal-scale">
+                <h3 class="card-title">Property Buying</h3>
+                <p class="card-body">Navigate the market with expert guidance. We help you find the perfect property that aligns with your vision and investment goals.</p>
+            </div>
+            <div class="glass-card service-card reveal-scale">
+                <h3 class="card-title">Property Selling</h3>
+                <p class="card-body">Maximize your property's value with our strategic marketing and negotiation. Achieve optimal outcomes with a seamless selling process.</p>
+            </div>
+            <div class="glass-card service-card reveal-scale">
+                <h3 class="card-title">Real Estate Investing</h3>
+                <p class="card-body">Unlock lucrative opportunities with our insights into market trends. We guide you to smart investments for long-term growth.</p>
+            </div>
+            <div class="glass-card service-card reveal-scale">
+                <h3 class="card-title">Property Leasing</h3>
+                <p class="card-body">Secure ideal tenants or find your next rental space effortlessly. Our leasing services ensure smooth transactions for all parties.</p>
+            </div>
+            <div class="glass-card service-card reveal-scale">
+                <h3 class="card-title">Relocation Assistance</h3>
+                <p class="card-body">Transition smoothly to a new location. We provide comprehensive support for your residential or commercial relocation needs.</p>
+            </div>
+            <div class="glass-card service-card reveal-scale">
+                <h3 class="card-title">Expert Consultation</h3>
+                <p class="card-body">Gain valuable advice and strategic insights for any real estate challenge. Our personalized consultations empower your decisions.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="about-content">
+            <div class="about-left">
+                <h2 class="section-heading reveal-left">The Sky Property Group Difference.</h2>
+                <div class="divider reveal-left" style="transition-delay: 100ms;"></div>
+                <p class="reveal-left" style="transition-delay: 200ms;">At Sky Property Group, we blend profound market insight with a personalized approach, ensuring every client journey is seamless, successful, and exceeds expectations. Our team, led by Austin Yatooma and Hiba Hakim, is dedicated to unlocking the full potential of your real estate endeavors. Experience the pinnacle of service, where your vision becomes our mission.</p>
+                <div class="team-member reveal-left" style="transition-delay: 300ms;">
+                    <h3 class="luxury-font">Austin Yatooma</h3>
+                    <p>Licensed Broker | <a href="tel:586-242-4312" style="color:var(--text-muted); text-decoration: none;">586-242-4312</a></p>
+                </div>
+                <div class="team-member reveal-left" style="transition-delay: 400ms;">
+                    <h3 class="luxury-font">Hiba Hakim</h3>
+                    <p>Realtor | <a href="tel:+12482210591" style="color:var(--text-muted); text-decoration: none;">+1 (248) 221-0591</a></p>
+                </div>
+            </div>
+            <div class="about-right">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1000" alt="Modern House Exterior" class="reveal-right">
+                <div class="about-stats cards-stagger">
+                    <div class="stat-block reveal-scale">
+                        <span class="number">5+</span>
+                        <span class="label">Years Expert Experience</span>
+                    </div>
+                    <div class="stat-block reveal-scale">
+                        <span class="number">200+</span>
+                        <span class="label">Commercial Properties Sold</span>
+                    </div>
+                    <div class="stat-block reveal-scale">
+                        <span class="number">4.9</span>
+                        <span class="label">5-Star Reviews</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <h2 class="section-heading text-center reveal">Voices of Our Valued Clients.</h2>
+        <div class="testimonials-grid cards-stagger">
+            <div class="glass-card testimonial-card reveal">
+                <div class="stars">★★★★★</div>
+                <p class="quote">"Sky Property Group transformed our search for a new commercial space into an effortless and highly successful venture. Their attention to detail and unwavering commitment were truly exceptional."</p>
+                <p class="reviewer-name">Jane D.</p>
+                <p class="reviewer-title">Commercial Client</p>
+            </div>
+            <div class="glass-card testimonial-card reveal">
+                <div class="stars">★★★★★</div>
+                <p class="quote">"Selling our luxury home with Sky Property Group was a premium experience from start to finish. Their marketing prowess and negotiation skills secured an outstanding outcome."</p>
+                <p class="reviewer-name">Mike R.</p>
+                <p class="reviewer-title">Residential Seller</p>
+            </div>
+            <div class="glass-card testimonial-card reveal">
+                <div class="stars">★★★★★</div>
+                <p class="quote">"The team at Sky Property Group provided invaluable guidance and expertise throughout our investment property acquisition. Their insights were instrumental to our success."</p>
+                <p class="reviewer-name">Sarah K.</p>
+                <p class="reviewer-title">Real Estate Investor</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact-form-container glass-card">
+            <h2 class="section-heading text-center">Connect With Us.</h2>
+            <div class="contact-details">
+                <p><strong>Address:</strong> Troy, MI</p>
+                <p><strong>Austin Yatooma (Licensed Broker):</strong> <a href="tel:586-242-4312" style="color:var(--text-muted); text-decoration: none;">586-242-4312</a></p>
+                <p><strong>Hiba Hakim:</strong> <a href="tel:+12482210591" style="color:var(--text-muted); text-decoration: none;">+1 (248) 221-0591</a></p>
+            </div>
+            <form class="contact-form">
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="Email" required>
+                <input type="tel" placeholder="Phone (Optional)">
+                <textarea placeholder="Message" rows="5"></textarea>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <a href="#hero" class="footer-logo"><img src="sky-logo.png" alt="logo" style="height:44px;max-width:180px;object-fit:contain;display:block;" /></a>
+        <ul class="footer-nav">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#featured-listings">Properties</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+        </ul>
+        <div class="footer-info">
+            <p>Specializing in commercial and residential realty, serving 100+ clients.</p>
+            <p>&copy; 2025 Sky Property Group. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Parallax effect for Hero content
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            const h = window.innerHeight;
+            const el = document.querySelector('.hero-content');
+            if (el) {
+                el.style.opacity = Math.max(0, 1 - y / h * 1.6);
+                el.style.transform = `translateY(${y * 0.45}px)`;
+            }
+        });
+
+        // Intersection Observer for scroll animations
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    io.unobserve(entry.target); // Stop observing once visible
+                }
+            });
+        }, {
+            threshold: 0.1, // Trigger when 10% of the element is visible
+            rootMargin: '0px 0px -30px 0px' // Adjust root margin to trigger slightly earlier
+        });
+
+        document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+            io.observe(el);
+        });
+    </script>
+</body>
+</html>
