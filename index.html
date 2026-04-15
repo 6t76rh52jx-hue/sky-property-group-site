@@ -146,17 +146,7 @@
             position: relative;
             z-index: 1;
             max-width: 900px;
-            padding: 48px 52px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.05) 100%);
-            backdrop-filter: blur(28px) saturate(180%) brightness(1.08);
-            -webkit-backdrop-filter: blur(28px) saturate(180%) brightness(1.08);
-            border-radius: 28px;
-            border: 1px solid rgba(255,255,255,0.22);
-            box-shadow:
-                0 8px 48px rgba(0,0,0,0.35),
-                inset 0 1.5px 0 rgba(255,255,255,0.35),
-                inset 0 -1px 0 rgba(255,255,255,0.08),
-                inset 1px 0 0 rgba(255,255,255,0.12);
+            padding: 0 20px;
         }
 
         .hero-logo {
@@ -174,15 +164,47 @@
             letter-spacing: -2px;
             line-height: 1.08;
             margin: 0 0 20px;
-            color: var(--text);
+            /* Liquid glass text */
+            color: rgba(255,255,255,0.12);
+            -webkit-text-stroke: 1px rgba(255,255,255,0.75);
+            text-shadow:
+                0 0 40px rgba(255,255,255,0.35),
+                0 2px 12px rgba(0,0,0,0.6),
+                0 -1px 0 rgba(255,255,255,0.6),
+                0 1px 3px rgba(255,255,255,0.15);
+            filter: drop-shadow(0 4px 16px rgba(0,0,0,0.4));
+            animation: liquidPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes liquidPulse {
+            0%, 100% {
+                text-shadow:
+                    0 0 40px rgba(255,255,255,0.35),
+                    0 2px 12px rgba(0,0,0,0.6),
+                    0 -1px 0 rgba(255,255,255,0.6),
+                    0 1px 3px rgba(255,255,255,0.15);
+            }
+            50% {
+                text-shadow:
+                    0 0 60px rgba(255,255,255,0.55),
+                    0 2px 16px rgba(0,0,0,0.4),
+                    0 -2px 0 rgba(255,255,255,0.9),
+                    0 1px 6px rgba(255,255,255,0.25);
+            }
         }
 
         .hero-subheadline {
             font-family: 'Inter', sans-serif;
             font-size: 1.1rem;
-            opacity: 0.6;
             line-height: 1.8;
             margin-bottom: 40px;
+            /* Subtle liquid glass on subheadline */
+            color: rgba(255,255,255,0.18);
+            -webkit-text-stroke: 0.5px rgba(255,255,255,0.6);
+            text-shadow:
+                0 0 20px rgba(255,255,255,0.25),
+                0 2px 8px rgba(0,0,0,0.5);
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
             color: var(--text-muted);
         }
 
